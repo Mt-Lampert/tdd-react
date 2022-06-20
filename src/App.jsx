@@ -1,5 +1,6 @@
 // import logo from './logo.svg';
 import './App.scss';
+import Signup from './pages/Signup';
 
 function App() {
   return (
@@ -32,6 +33,8 @@ function App() {
         <a className="button is-primary">Primary</a>
         <a className="button is-link">Link</a>
       </div>
+
+      <Signup />
     </>);
 }
 
