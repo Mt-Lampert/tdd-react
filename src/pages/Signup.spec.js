@@ -25,5 +25,20 @@ describe("Signup Component", () => {
       const mailInput = screen.getByPlaceholderText("Enter your email address")
       expect(mailInput).toBeInTheDocument
     })
+
+    it("has a password input field", () => {
+      const passwd01Input = screen.getByLabelText("Enter your password")
+      expect(passwd01Input).toBeInTheDocument()
+    } )
+
+    it("has a password retype field", () => {
+      const passwd02Input = screen.getByLabelText("Re-enter your password")
+      expect(passwd02Input).toBeInTheDocument()
+    })
+
+    it("has a submit button", () => {
+      const submitButton = screen.getByRole("button", {name: "Submit"})
+      expect(submitButton).toBeInTheDocument()
+    })
   })
 })
