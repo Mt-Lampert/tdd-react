@@ -1,5 +1,37 @@
 # Journal TDD React with Bashar Büyükkharahman
 
+## 2022-06-22 19:32
+
+Hab die Formatierung vorgezogen. War sehr lehrreich mit Bulma. Ein bisschen Kampf war auch dabei.
+Hätte z.B. nie gedacht, dass ein Button in Bulma ein Flexbox-Container ist. Ist es aber.
+Außerdem kann man sich nur insoweit auf Bulma verlassen als man in der `main.scss` die benötigten
+`.sass`-Dateien aus `node-modules` wirklich hineinlädt. 
+
+Aber am Ende hat es sich gelohnt, mit Bulma zu kämpfen.
+
+
+## 2022-06-22 09:05
+
+Ich musste `@testing-library/user-event` auf Version 14 updaten!(nach Rezept der
+[offiziellen Dokumentation](https://testing-library.com/docs/user-event/intro))
+Hat sich aber nicht
+negativ auf das bestehende Projekt ausgewirkt. 
+
+Hier nochmal, wie ich `@testing-library/user-event` bei seinem ersten Einsatz in meine Tests eingebunden habe
+
+```javascript
+import userEvent from "@testing-library/user-event"
+
+it("...", ()=>{
+  const user = userEvent.setup()
+  // ...
+  user.type(passwd01, "test1234")
+})
+```
+
+Mehr unter git@7a0fccb 
+
+
 ## 2022-06-22 08:14
 
 Folgender Code zeigt die häufigsten Markup-Selectors beim Testen an:
@@ -28,7 +60,7 @@ const submitButton = screen.getByRole("button", {name: "Submit"})
  2. Auswählen: `const element = screen.getByRole("button", { name: "Submit" });`
  3. Testen: `expect(element).toBeInTheDocument`
 
-Das Rendern lässt sich auch auslagern, wenn es immer wieder dasselbe Component ist, das gerendert wird:
+Das Rendern lässt sich auch auslagern, wenn immer nur dasselbe Component gerendert wird:
 
 ```javascript
 beforeEach(() => {
