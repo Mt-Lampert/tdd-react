@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react"
+import userEvent from "@testing-library/user-event";
 import Signup from "./Signup"
 
 describe("Signup Component", () => {
@@ -39,6 +40,22 @@ describe("Signup Component", () => {
     it("has a submit button", () => {
       const submitButton = screen.getByRole("button", {name: "Submit"})
       expect(submitButton).toBeInTheDocument()
+      expect(submitButton).toBeDisabled()
+    })
+  })
+
+  describe("on Interaction level", () => {
+    it("enables Signup button after entering valid passwords", async() => {
+      const user = userEvent.setup()
+      const passwd01 = screen.getByLabelText("Enter your password")
+      const passwd02 = screen.getByLabelText("Re-enter your password")
+
+      // entering valid passwords
+      await user.type(passwd01, "test1234")
+      await user.type(passwd02, "test1234")
+      // NOW we select the signup Button, because it should be enabled by now.
+      const submitButton = screen.getByRole("button", { name: "Submit"})
+      expect(submitButton).toBeEnabled()
     })
   })
 })
