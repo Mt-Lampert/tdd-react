@@ -1,6 +1,32 @@
 # Journal TDD React with Bashar Büyükkharahman
 
-## 2022-06-22 19:32
+
+## 2022-06-23
+
+### 06:38
+
+Die Geschichte mit Axios-Mock von gestern war keine gute Idee. Ich steige heute fürs Mocking auf MSW um.
+
+
+
+
+## 2022-06-23 
+
+
+
+### 07:21
+
+Ich hab mal wieder was verwegenes vor: Ich werde Axios von Anfang an durch den Axios-Mock-Adapter ersetzen. Das wird sicher auch für das BOOM-Projekt von Vorteil sein. Hier eine 
+[kleine Einführung](https://nicedoc.io/ctimmerm/axios-mock-adapter)
+dazu.
+
+```sh
+$ npm install axios-mock-adapter --save-dev
+```
+
+## 2022-06-22 
+
+### 19:32
 
 Hab die Formatierung vorgezogen. War sehr lehrreich mit Bulma. Ein bisschen Kampf war auch dabei.
 Hätte z.B. nie gedacht, dass ein Button in Bulma ein Flexbox-Container ist. Ist es aber.
