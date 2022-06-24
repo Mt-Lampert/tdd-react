@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react"
 import userEvent from "@testing-library/user-event";
+import {server, rest} from "../msw-server"
 import Signup from "./Signup"
 
 describe("Signup Component", () => {
