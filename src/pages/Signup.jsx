@@ -1,13 +1,18 @@
 import React, { useRef, useState } from "react";
+import axios from "axios";
 
 export default function Signup(props) {
   const [isDisabled, setIsDisabled] = useState(true);
+  const [infoMessage, setInfoMessage] = useState("");
 
+  const nameField = useRef();
+  const emailField = useRef();
   const passwd01 = useRef();
   const passwd02 = useRef();
 
   function pwChangeHandler() {
     const minLen = 6;
+    
     const pwd01 = passwd01.current.value;
     const pwd02 = passwd02.current.value;
 
@@ -30,6 +35,19 @@ export default function Signup(props) {
 
   function signupHandler(e) {
     e.preventDefault();
+    const signupData = {
+      name: nameField.current.value,
+      email: emailField.current.value,
+      passwd: passwd01.current.value,
+    }
+    
+    axios.post("http://localhost:4000/user", signupData)
+      .then((res) => {
+        console.log(res.data);
+        setInfoMessage("Signup successful!")
+      })  
+    
+
   }
 
   return (
@@ -46,6 +64,7 @@ export default function Signup(props) {
                   type="text"
                   name="nameField"
                   id="nameField"
+                  ref={nameField}
                   placeholder="Enter your username"
                 />
               </div>
@@ -58,6 +77,7 @@ export default function Signup(props) {
                   type="text"
                   name="mailField"
                   id="mailField"
+                  ref={emailField}
                   placeholder="Enter your email address"
                 />
               </div>
@@ -96,6 +116,10 @@ export default function Signup(props) {
           </form>
         </div>
       </div>
+
+      { infoMessage.length > 0 &&
+        <div className="is-info is-success">Signup successful!</div>
+      }
     </div>
   );
 }
