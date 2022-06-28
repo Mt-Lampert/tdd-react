@@ -41,5 +41,6 @@
     "@testing-library/user-event": "^14.2.1",
     "msw": "^0.42.3",
     "whatwg-fetch": "^3.6.2"
-  }
+  },
+  "proxy": "http://localhost:4000"
 }

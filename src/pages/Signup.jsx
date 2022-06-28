@@ -41,7 +41,7 @@ export default function Signup(props) {
       password: passwd01.current.value,
     }
     
-    axios.post("http://localhost:4000/api/1.0/users", signupData)
+    axios.post("/api/1.0/users", signupData)
       .then((res) => {
         console.log(res.data);
         setInfoMessage("Signup successful!")

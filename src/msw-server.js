@@ -1,11 +1,11 @@
 import { rest } from "msw";
 import { setupServer } from "msw/node";
 
-const backend = "http://localhost:4000";
+// const backend = "http://localhost:4000";
 
 const server = setupServer(
   rest.post(
-    `${backend}/api/1.0/users`,
+    '/api/1.0/users',
     (req, res, ctx) => {
       return res(
         ctx.status(200),
