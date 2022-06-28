@@ -36,12 +36,12 @@ export default function Signup(props) {
   function signupHandler(e) {
     e.preventDefault();
     const signupData = {
-      name: nameField.current.value,
+      username: nameField.current.value,
       email: emailField.current.value,
-      passwd: passwd01.current.value,
+      password: passwd01.current.value,
     }
     
-    axios.post("http://localhost:4000/user", signupData)
+    axios.post("http://localhost:4000/api/1.0/users", signupData)
       .then((res) => {
         console.log(res.data);
         setInfoMessage("Signup successful!")

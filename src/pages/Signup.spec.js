@@ -80,6 +80,7 @@ describe("Signup Component", () => {
 
       await user.click(submitButton);
 
+      // wait for re-rendering
       await new Promise((res, rej) => {
         setTimeout(res, 10)
       })
