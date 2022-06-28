@@ -5,7 +5,7 @@ const backend = "http://localhost:4000";
 
 const server = setupServer(
   rest.post(
-    `${backend}/user`,
+    `${backend}/api/1.0/users`,
     (req, res, ctx) => {
       return res(
         ctx.status(200),
