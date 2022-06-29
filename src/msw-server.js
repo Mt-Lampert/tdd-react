@@ -5,8 +5,17 @@ import { setupServer } from "msw/node";
 
 const server = setupServer(
   rest.post(
-    '/api/1.0/users',
+    "/api/1.0/users",
     (req, res, ctx) => {
+      if (req.body.email.indexOf("used") !== -1) {
+        return res(
+          ctx.status(400),
+          ctx.json({
+            message: "email in use",
+          })
+        );
+      }
+
       return res(
         ctx.status(200),
         ctx.json({

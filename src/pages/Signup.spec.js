@@ -82,11 +82,42 @@ describe("Signup Component", () => {
 
       // wait for re-rendering
       await new Promise((res, rej) => {
-        setTimeout(res, 10)
+        setTimeout(res, 1110)
       })
 
       const infoMessage = screen.getByText("Signup successful!");
       expect(infoMessage).toBeInTheDocument();
     });
+  });
+
+  it("fails at sending wrong data to the backend", async () => {
+    const myUsername = "Dickie Dick Dickens";
+    const myEmail = "used.dickie@dickens.com";
+    const myPasswd = "Test1234";
+
+    const user = userEvent.setup();
+
+    const nameInput = screen.getByPlaceholderText("Enter your username");
+    const emailInput = screen.getByPlaceholderText(
+      "Enter your email address"
+    );
+    const passwd01Input = screen.getByLabelText("Enter your password");
+    const passwd02Input = screen.getByLabelText("Re-enter your password");
+    const submitButton = screen.getByRole("button", { name: "Submit" });
+
+    await user.type(nameInput, myUsername);
+    await user.type(passwd01Input, myPasswd);
+    await user.type(emailInput, myEmail);
+    await user.type(passwd02Input, myPasswd);
+
+    await user.click(submitButton);
+
+    // wait for re-rendering
+    await new Promise((res, rej) => {
+      setTimeout(res, 1110)
+    })
+
+    const infoMessage = screen.getByText("Signup failed!");
+    expect(infoMessage).toBeInTheDocument();
   });
 });

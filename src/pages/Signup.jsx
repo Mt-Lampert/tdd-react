@@ -1,16 +1,23 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { act } from "@testing-library/react";
 import axios from "axios";
 
 export default function Signup(props) {
   const [isDisabled, setIsDisabled] = useState(true);
   const [infoMessage, setInfoMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [ntfyColor, setNtfyColor] = useState("");
 
   const nameField = useRef();
   const emailField = useRef();
   const passwd01 = useRef();
   const passwd02 = useRef();
 
-  function pwChangeHandler() {
+  const buttonCSS = "button is-link  is-fullwidth is-justify-content-center";
+  const buttonLoadingCSS = buttonCSS + " is-loading";
+
+
+    function pwChangeHandler() {
     const minLen = 6;
     
     const pwd01 = passwd01.current.value;
@@ -35,17 +42,28 @@ export default function Signup(props) {
 
   function signupHandler(e) {
     e.preventDefault();
+    setLoading(true)
     const signupData = {
       username: nameField.current.value,
       email: emailField.current.value,
       password: passwd01.current.value,
     }
-    
     axios.post("/api/1.0/users", signupData)
       .then((res) => {
-        console.log(res.data);
-        setInfoMessage("Signup successful!")
-      })  
+        setTimeout(() => {
+          act(() => setLoading(false))
+          return res.data
+        }, 500)
+      })
+      .then((data) => {
+        act(()=> setInfoMessage("Signup successful!"))
+        act(() => setNtfyColor("notification is-success"))
+      })
+      .catch((error) => {
+        act(()=> setLoading(false))
+        act(() => setInfoMessage("Signup failed!"))
+        act(() => setNtfyColor("notification is-danger"))
+      }) 
     
 
   }
@@ -110,7 +128,7 @@ export default function Signup(props) {
               </div>
             </div>
             <br />
-            <button className="button is-link  is-fullwidth is-justify-content-center" disabled={isDisabled}>
+            <button className={loading ? buttonLoadingCSS : buttonCSS} disabled={isDisabled}>
               Submit
             </button>
           </form>
@@ -118,7 +136,7 @@ export default function Signup(props) {
       </div>
 
       { infoMessage.length > 0 &&
-        <div className="is-info is-success">Signup successful!</div>
+        <div className={ntfyColor}>{infoMessage}</div>
       }
     </div>
   );
