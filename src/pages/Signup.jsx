@@ -1,25 +1,56 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useReducer, useRef, useState } from "react";
 import { act } from "@testing-library/react";
 import axios from "axios";
 
+const loadDataInit = {
+  ntfyStyle: "",
+  infoMessage: "",
+  buttonCSS: "button is-link  is-fullwidth is-justify-content-center",
+};
+
+function loadDataReducer(state, action) {
+  const newState = { ...state };
+  switch (action.type) {
+    case "success":
+      newState.ntfyStyle = "notification is-success";
+      newState.infoMessage = "Signup successful!";
+      break;
+
+    case "fail":
+      newState.ntfyStyle = "notification is-danger";
+      newState.infoMessage = "Signup failed!";
+      break;
+
+    default:
+      console.error("Something went wrong with the loadDataReducer!");
+      break;
+  }
+
+  return newState;
+}
+
 export default function Signup(props) {
   const [isDisabled, setIsDisabled] = useState(true);
-  const [infoMessage, setInfoMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const [ntfyColor, setNtfyColor] = useState("");
+  const [signupState, signupDispatch] = useReducer(
+    loadDataReducer,
+    loadDataInit
+  );
+
+  const successAction = { type: "success" };
+  const failAction = { type: "fail" };
 
   const nameField = useRef();
   const emailField = useRef();
   const passwd01 = useRef();
   const passwd02 = useRef();
 
-  const buttonCSS = "button is-link  is-fullwidth is-justify-content-center";
-  const buttonLoadingCSS = buttonCSS + " is-loading";
+  //  const buttonCSS = "button is-link  is-fullwidth is-justify-content-center";
+  // const buttonLoadingCSS = buttonCSS + " is-loading";
 
-
-    function pwChangeHandler() {
+  function pwChangeHandler() {
     const minLen = 6;
-    
+
     const pwd01 = passwd01.current.value;
     const pwd02 = passwd02.current.value;
 
@@ -42,30 +73,35 @@ export default function Signup(props) {
 
   function signupHandler(e) {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     const signupData = {
       username: nameField.current.value,
       email: emailField.current.value,
       password: passwd01.current.value,
-    }
-    axios.post("/api/1.0/users", signupData)
+    };
+    axios
+      .post("/api/1.0/users", signupData)
       .then((res) => {
         setTimeout(() => {
-          act(() => setLoading(false))
-          return res.data
-        }, 500)
+          act(() => setLoading(false));
+          return res.data;
+        }, 500);
       })
       .then((data) => {
-        act(()=> setInfoMessage("Signup successful!"))
-        act(() => setNtfyColor("notification is-success"))
+        act(() => {
+          signupDispatch(successAction);
+        });
+        // act(() => setInfoMessage("Signup successful!"));
+        // act(() => setNtfyColor("notification is-success"));
       })
       .catch((error) => {
-        act(()=> setLoading(false))
-        act(() => setInfoMessage("Signup failed!"))
-        act(() => setNtfyColor("notification is-danger"))
-      }) 
-    
-
+        act(() => setLoading(false));
+        act(() => {
+          signupDispatch(failAction);
+        });
+        // act(() => setInfoMessage("Signup failed!"));
+        // act(() => setNtfyColor("notification is-danger"));
+      });
   }
 
   return (
@@ -128,16 +164,23 @@ export default function Signup(props) {
               </div>
             </div>
             <br />
-            <button className={loading ? buttonLoadingCSS : buttonCSS} disabled={isDisabled}>
+            <button
+              className={
+                loading
+                  ? signupState.buttonCSS + " is-loading"
+                  : signupState.buttonCSS
+              }
+              disabled={isDisabled}
+            >
               Submit
             </button>
           </form>
         </div>
       </div>
 
-      { infoMessage.length > 0 &&
-        <div className={ntfyColor}>{infoMessage}</div>
-      }
+      {signupState.infoMessage.length > 0 && (
+        <div className={signupState.ntfyStyle}>{signupState.infoMessage}</div>
+      )}
     </div>
   );
 }
