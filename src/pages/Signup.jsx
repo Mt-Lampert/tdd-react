@@ -82,12 +82,10 @@ export default function Signup(props) {
     axios
       .post("/api/1.0/users", signupData)
       .then((res) => {
-        setTimeout(() => {
-          act(() => setLoading(false));
-          return res.data;
-        }, 500);
+        return res.data
       })
       .then((data) => {
+        act(() => setLoading(false));
         act(() => {
           signupDispatch(successAction);
         });
