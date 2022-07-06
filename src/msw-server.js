@@ -11,7 +11,9 @@ const server = setupServer(
         return res(
           ctx.status(400),
           ctx.json({
-            message: "email in use",
+            validationErrors: {
+              email: "email in use",
+            }
           })
         );
       }

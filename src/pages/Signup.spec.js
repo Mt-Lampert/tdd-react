@@ -4,40 +4,40 @@ import { server, rest } from "../msw-server";
 import Signup from "./Signup";
 
 describe("Signup Component", () => {
-  beforeEach(() => {
-    render(<Signup />);
-  });
-
+  
   describe("on HTML level", () => {
     it("has a header", () => {
-      // render(<Signup></Signup>)
+      render(<Signup></Signup>)
       const header = screen.getByText("Please Sign up!");
       expect(header).toBeInTheDocument();
     });
 
     it("has a user name input field", () => {
-      // render(<Signup />)
+      render(<Signup />)
       const nameInput = screen.getByPlaceholderText("Enter your username");
       expect(nameInput).toBeInTheDocument;
     });
 
     it("has an email input field", () => {
-      // render(<Signup />)
+      render(<Signup />)
       const mailInput = screen.getByPlaceholderText("Enter your email address");
       expect(mailInput).toBeInTheDocument;
     });
 
     it("has a password input field", () => {
+      render(<Signup />);
       const passwd01Input = screen.getByLabelText("Enter your password");
       expect(passwd01Input).toBeInTheDocument();
     });
 
     it("has a password retype field", () => {
+      render(<Signup />);
       const passwd02Input = screen.getByLabelText("Re-enter your password");
       expect(passwd02Input).toBeInTheDocument();
     });
 
     it("has a submit button", () => {
+      render(<Signup />);
       const submitButton = screen.getByRole("button", { name: "Submit" });
       expect(submitButton).toBeInTheDocument();
       expect(submitButton).toBeDisabled();
@@ -47,6 +47,7 @@ describe("Signup Component", () => {
   describe("on Interaction level", () => {
     
     it("enables Signup button after entering valid passwords", async () => {
+      render(<Signup />);
       const user = userEvent.setup();
       const passwd01 = screen.getByLabelText("Enter your password");
       const passwd02 = screen.getByLabelText("Re-enter your password");
@@ -60,6 +61,7 @@ describe("Signup Component", () => {
     });
 
     it("sends signup data to the backend", async () => {
+      render(<Signup />);
       const myUsername = "Dickie Dick Dickens";
       const myEmail = "dickie@dickens.com";
       const myPasswd = "test1234";
@@ -92,7 +94,8 @@ describe("Signup Component", () => {
 
     });
 
-    it("fails at sending wrong data to the backend", async () => {
+    it("fails at sending wrong email to the backend", async () => {
+      render(<Signup />);
       const myUsername = "Dickie Dick Dickens";
       const myEmail = "used.dickie@dickens.com";
       const myPasswd = "Test1234";
@@ -119,7 +122,7 @@ describe("Signup Component", () => {
         setTimeout(res, 1110);
       });
 
-      const infoMessage = screen.getByText("Signup failed!");
+      const infoMessage = screen.getByText("email in use");
       expect(infoMessage).toBeInTheDocument();
     });
   });

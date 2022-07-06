@@ -5,6 +5,9 @@ import axios from "axios";
 const loadDataInit = {
   ntfyStyle: "",
   infoMessage: "",
+  errors: {
+    email: "",
+  },
   buttonCSS: "button is-link  is-fullwidth is-justify-content-center",
 };
 
@@ -19,26 +22,37 @@ function loadDataReducer(state, action) {
     case "fail":
       newState.ntfyStyle = "notification is-danger";
       newState.infoMessage = "Signup failed!";
+      newState.errors = { ...action.errors};
       break;
 
     default:
       console.error("Something went wrong with the loadDataReducer!");
       break;
   }
-
+  
   return newState;
+}
+
+function getFailAction(error) {
+  const failAction = {
+    type: "fail",
+    errors: {
+      email: error.response.data.validationErrors.email,
+    },
+  };
+  return failAction;
 }
 
 export default function Signup(props) {
   const [isDisabled, setIsDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
+  // const [emailInvalid, setEmailInvalid] = useState(false);
   const [signupState, signupDispatch] = useReducer(
     loadDataReducer,
     loadDataInit
   );
 
   const successAction = { type: "success" };
-  const failAction = { type: "fail" };
 
   const nameField = useRef();
   const emailField = useRef();
@@ -82,7 +96,7 @@ export default function Signup(props) {
     axios
       .post("/api/1.0/users", signupData)
       .then((res) => {
-        return res.data
+        return res.data;
       })
       .then((data) => {
         act(() => setLoading(false));
@@ -95,7 +109,7 @@ export default function Signup(props) {
       .catch((error) => {
         act(() => setLoading(false));
         act(() => {
-          signupDispatch(failAction);
+          signupDispatch(getFailAction(error));
         });
         // act(() => setInfoMessage("Signup failed!"));
         // act(() => setNtfyColor("notification is-danger"));
@@ -133,6 +147,7 @@ export default function Signup(props) {
                   placeholder="Enter your email address"
                 />
               </div>
+              {signupState.errors.email && <p className="has-text-danger-dark">{signupState.errors.email}</p>}
             </div>
 
             <div className="field">
