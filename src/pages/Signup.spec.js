@@ -94,7 +94,7 @@ describe("Signup Component", () => {
 
     });
 
-    it("fails at sending wrong email to the backend", async () => {
+    it("fails at sending wrong email to the backend", async () => { 
       render(<Signup />);
       const myUsername = "Dickie Dick Dickens";
       const myEmail = "used.dickie@dickens.com";

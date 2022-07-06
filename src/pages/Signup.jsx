@@ -1,8 +1,9 @@
 import React, { useReducer, useRef, useState } from "react";
 import { act } from "@testing-library/react";
+import { getSignupFailAction, signupStateReducer } from "../helpers/reducers";
 import axios from "axios";
 
-const loadDataInit = {
+const signupStateInit = {
   ntfyStyle: "",
   infoMessage: "",
   errors: {
@@ -11,45 +12,12 @@ const loadDataInit = {
   buttonCSS: "button is-link  is-fullwidth is-justify-content-center",
 };
 
-function loadDataReducer(state, action) {
-  const newState = { ...state };
-  switch (action.type) {
-    case "success":
-      newState.ntfyStyle = "notification is-success";
-      newState.infoMessage = "Signup successful!";
-      break;
-
-    case "fail":
-      newState.ntfyStyle = "notification is-danger";
-      newState.infoMessage = "Signup failed!";
-      newState.errors = { ...action.errors};
-      break;
-
-    default:
-      console.error("Something went wrong with the loadDataReducer!");
-      break;
-  }
-  
-  return newState;
-}
-
-function getFailAction(error) {
-  const failAction = {
-    type: "fail",
-    errors: {
-      email: error.response.data.validationErrors.email,
-    },
-  };
-  return failAction;
-}
-
 export default function Signup(props) {
   const [isDisabled, setIsDisabled] = useState(true);
   const [loading, setLoading] = useState(false);
-  // const [emailInvalid, setEmailInvalid] = useState(false);
   const [signupState, signupDispatch] = useReducer(
-    loadDataReducer,
-    loadDataInit
+    signupStateReducer,
+    signupStateInit
   );
 
   const successAction = { type: "success" };
@@ -58,9 +26,6 @@ export default function Signup(props) {
   const emailField = useRef();
   const passwd01 = useRef();
   const passwd02 = useRef();
-
-  //  const buttonCSS = "button is-link  is-fullwidth is-justify-content-center";
-  // const buttonLoadingCSS = buttonCSS + " is-loading";
 
   function pwChangeHandler() {
     const minLen = 6;
@@ -103,16 +68,12 @@ export default function Signup(props) {
         act(() => {
           signupDispatch(successAction);
         });
-        // act(() => setInfoMessage("Signup successful!"));
-        // act(() => setNtfyColor("notification is-success"));
       })
       .catch((error) => {
         act(() => setLoading(false));
         act(() => {
-          signupDispatch(getFailAction(error));
+          signupDispatch(getSignupFailAction(error));
         });
-        // act(() => setInfoMessage("Signup failed!"));
-        // act(() => setNtfyColor("notification is-danger"));
       });
   }
 
@@ -147,7 +108,11 @@ export default function Signup(props) {
                   placeholder="Enter your email address"
                 />
               </div>
-              {signupState.errors.email && <p className="has-text-danger-dark">{signupState.errors.email}</p>}
+              {signupState.errors.email && (
+                <p className="has-text-danger-dark">
+                  {signupState.errors.email}
+                </p>
+              )}
             </div>
 
             <div className="field">
