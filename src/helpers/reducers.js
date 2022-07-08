@@ -2,12 +2,12 @@ export function signupStateReducer(state, action) {
   const newState = { ...state };
   switch (action.type) {
     case "success":
-      newState.ntfyStyle = "notification is-success";
+      newState.ntfyStyle = "notification is-success mt-5";
       newState.infoMessage = "Signup successful!";
       break;
 
     case "fail":
-      newState.ntfyStyle = "notification is-danger";
+      newState.ntfyStyle = "notification is-danger mt-5";
       newState.infoMessage = "Signup failed!";
       newState.errors = { ...action.errors};
       break;
