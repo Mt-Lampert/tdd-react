@@ -153,12 +153,13 @@ export default function Signup(props) {
               Submit
             </button>
           </form>
+          {signupState.infoMessage.length > 0 && (
+            <div className={signupState.ntfyStyle}>
+              {signupState.infoMessage}
+            </div>
+          )}
         </div>
       </div>
-
-      {signupState.infoMessage.length > 0 && (
-        <div className={signupState.ntfyStyle}>{signupState.infoMessage}</div>
-      )}
     </div>
   );
 }

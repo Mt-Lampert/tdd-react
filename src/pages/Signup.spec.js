@@ -85,7 +85,7 @@ describe("Signup Component", () => {
 
       // wait for re-rendering
       await new Promise((res, rej) => {
-        setTimeout(res, 610);
+        setTimeout(res, 50);
       });
 
       const infoMessage = screen.getByText("Signup successful!");
@@ -119,7 +119,7 @@ describe("Signup Component", () => {
 
       // wait for re-rendering
       await new Promise((res, rej) => {
-        setTimeout(res, 1110);
+        setTimeout(res, 50);
       });
 
       const infoMessage = screen.getByText("email in use");
