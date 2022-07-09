@@ -8,7 +8,7 @@ function App() {
   return (
     <div className='mainframe'>
       <LandingPage />
-      <Signup />
+      {/* <Signup /> */}
     </div>
   );
 }

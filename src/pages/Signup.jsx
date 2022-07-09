@@ -78,7 +78,7 @@ export default function Signup(props) {
   }
 
   return (
-    <div className="section">
+    <div className="section" data-testid="signup-page">
       <div className="columns">
         <div className="column is-6 is-offset-3">
           <h1 className="title is-3 has-text-centered">Please Sign up!</h1>
