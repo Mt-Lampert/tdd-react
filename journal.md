@@ -1,4 +1,26 @@
-# Journal TDD React with Bashar Büyükkharahman
+# Journal: TDD React mit Bashar Büyükkharahman
+
+## 22-07-08
+
+### 10:08
+
+Man beachte, wie im aktuellen Commit `screen.getByTestId()` funktioniert:
+
+```javascript
+// in App.spec.js
+const homePage = screen.getByTestId("home-page");
+
+// will find this in the JSX of LandingPage.jsx
+<div data-testid="home-page">...</div>
+```
+
+
+### 08:15
+
+Im Kurs hab ich das Kapitel "Internationalisierung" übersprungen, um mich jetzt ganz dem Thema "Routing" zuzuwenden.
+Einfach implementieren, Refaktorisieren und Fortschritte machen. Es muss nicht immer so anpruchsvoll sein wie mit `useReducer()`.
+
+
 
 ## 22-07-06
 
