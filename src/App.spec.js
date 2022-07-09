@@ -13,4 +13,14 @@ describe("Routing", () => {
     const signupPage = screen.queryByTestId("signup-page");
     expect(signupPage).not.toBeInTheDocument();
   });
+
+  it("displays the Signup page at '/signup' route", () => {
+    // access the right end point (JavaScript-internally)
+    window.history.pushState({}, "", "/signup")
+    // now <App> knows it has been accessed by calling the
+    // '/signup' endpoint; proxy-setting in package.json helps here.
+    render(<App />);
+    const signupPage = screen.getByTestId("signup-page");
+    expect(signupPage).toBeInTheDocument();
+  });
 });

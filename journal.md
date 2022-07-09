@@ -1,5 +1,40 @@
 # Journal: TDD React mit Bashar Büyükkharahman
 
+## 22-07-09
+
+### 06:01
+
+Der aktuelle Commit simuliert Routing! Im Test wird dafür ein Endpoint ausgewählt:
+
+```javascript
+  // access the "/signup" end point (JavaScript-internally)
+  window.history.pushState({}, "", "/signup")
+```
+
+... und dann im Component überprüft, über welche URL die App angesteuert wurde: 
+
+```javascript
+return (
+  {/* if the current URL ends with '/signup', render <Signup> */}
+  {window.location.pathname === "/signup" && <Signup />}
+);
+```
+
+
+### 04:58
+
+Der aktuelle Commit zeigt den Einsatz von `screen.queryByXXX()`. `screen.queryByXXX()` wird 
+verwendet, wenn wir sicherstellen wollen, dass ein bestimmtes Element NICHT im DOM gefunden wird.
+
+```javascript
+it("doesn't display Signup page at '/' route", () => {
+  render(<App />);
+  const signupPage = screen.queryByTestId("signup-page");
+  expect(signupPage).not.toBeInTheDocument();
+});
+```
+
+
 ## 22-07-08
 
 ### 10:08

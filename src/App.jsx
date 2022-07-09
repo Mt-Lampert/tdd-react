@@ -8,7 +8,8 @@ function App() {
   return (
     <div className='mainframe'>
       <LandingPage />
-      {/* <Signup /> */}
+      {/* if the current URL ends with '/signup', render <Signup> */}
+      {window.location.pathname === "/signup" && <Signup />}
     </div>
   );
 }
