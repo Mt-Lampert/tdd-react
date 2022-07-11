@@ -5,10 +5,12 @@ describe("Routing", () => {
   const routes = [
     { path: "/", testID: "home-page" },
     { path: "/signup", testID: "signup-page" },
+    { path: "/login", testID: "login-page" },
   ];
   const nullRoutes = [
     { path: "/", testID: "signup-page" },
     { path: "/signup", testID: "home-page" },
+    { path: "/login", testID: "home-page" },
   ];
 
   it.each(routes)(

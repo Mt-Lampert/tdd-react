@@ -3,6 +3,7 @@ import './App.scss';
 import './App.css'
 import Signup from './pages/Signup';
 import LandingPage from './pages/LandingPage';
+import Login from './pages/Login';
 
 function App() {
   return (
@@ -11,6 +12,8 @@ function App() {
       {window.location.pathname === "/" && <LandingPage />}
       {/* if the current URL ends with '/signup', render <Signup> */}
       {window.location.pathname === "/signup" && <Signup />}
+      {/* if the current URL ends with '/login', render <Login> */}
+      {window.location.pathname === "/login" && <Login />}
     </div>
   );
 }
