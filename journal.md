@@ -6,18 +6,26 @@
 
 Der aktuelle Commit simuliert Routing! Im Test wird dafür ein Endpoint ausgewählt:
 
-```javascript
+```js
+  // in App.spec.js
+
+it( "whatever...", () => {
   // access the "/signup" end point (JavaScript-internally)
   window.history.pushState({}, "", "/signup")
+})
 ```
 
 ... und dann im Component überprüft, über welche URL die App angesteuert wurde: 
 
-```javascript
-return (
-  {/* if the current URL ends with '/signup', render <Signup> */}
-  {window.location.pathname === "/signup" && <Signup />}
-);
+```js
+// in App.jsx
+export default function App(props) {
+  // ...
+  return (
+    {/* if the current URL ends with '/signup', render <Signup> */}
+    {window.location.pathname === "/signup" && <Signup />}
+  );
+}
 ```
 
 

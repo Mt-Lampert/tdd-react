@@ -8,12 +8,6 @@ describe("Routing", () => {
     expect(homePage).toBeInTheDocument();
   });
 
-  it("doesn't display Signup page at '/' route", () => {
-    render(<App />);
-    const signupPage = screen.queryByTestId("signup-page");
-    expect(signupPage).not.toBeInTheDocument();
-  });
-
   it("displays the Signup page at '/signup' route", () => {
     // access the right end point (JavaScript-internally)
     window.history.pushState({}, "", "/signup")
@@ -23,4 +17,23 @@ describe("Routing", () => {
     const signupPage = screen.getByTestId("signup-page");
     expect(signupPage).toBeInTheDocument();
   });
+
+  it("doesn't display Signup page at '/' route", () => {
+    // access the right end point (JavaScript-internally)
+    window.history.pushState({}, "", "/")
+    render(<App />);
+    const signupPage = screen.queryByTestId("signup-page");
+    expect(signupPage).not.toBeInTheDocument();
+  });
+
+  it("doesn't display the landing page at '/signup' route", () => {
+    // access the right end point (JavaScript-internally)
+    window.history.pushState({}, "", "/signup")
+    render(<App />);
+    const landingPage = screen.queryByTestId("home-page");
+    expect(landingPage).not.toBeInTheDocument();
+  });
+
+
+
 });

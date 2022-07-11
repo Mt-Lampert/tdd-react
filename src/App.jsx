@@ -7,7 +7,8 @@ import LandingPage from './pages/LandingPage';
 function App() {
   return (
     <div className='mainframe'>
-      <LandingPage />
+      {/* if the current URL ends with '/', render <LandingPage> */}
+      {window.location.pathname === "/" && <LandingPage />}
       {/* if the current URL ends with '/signup', render <Signup> */}
       {window.location.pathname === "/signup" && <Signup />}
     </div>
