@@ -4,6 +4,7 @@ import './App.css'
 import Signup from './pages/Signup';
 import LandingPage from './pages/LandingPage';
 import Login from './pages/Login';
+import User from './pages/User';
 
 function App() {
   return (
@@ -14,6 +15,8 @@ function App() {
       {window.location.pathname === "/signup" && <Signup />}
       {/* if the current URL ends with '/login', render <Login> */}
       {window.location.pathname === "/login" && <Login />}
+      {/* if the current URL starts with '/user', render <User> */}
+      {window.location.pathname.startsWith("/user") && <User />}
     </div>
   );
 }

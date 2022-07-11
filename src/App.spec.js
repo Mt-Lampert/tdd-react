@@ -6,11 +6,15 @@ describe("Routing", () => {
     { path: "/", testID: "home-page" },
     { path: "/signup", testID: "signup-page" },
     { path: "/login", testID: "login-page" },
+    { path: "/user/1", testID: "user-page"},
+    { path: "/user/22", testID: "user-page"},
   ];
   const nullRoutes = [
     { path: "/", testID: "signup-page" },
     { path: "/signup", testID: "home-page" },
     { path: "/login", testID: "home-page" },
+    { path: "/user/22", testID: "home-page"},
+    { path: "/user/22", testID: "landing-page"},
   ];
 
   it.each(routes)(
