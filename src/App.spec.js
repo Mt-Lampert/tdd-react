@@ -2,38 +2,33 @@ import { render, screen } from "@testing-library/react";
 import App from "./App";
 
 describe("Routing", () => {
-  it("displays the landing page at '/' route", () => {
-    render(<App />);
-    const homePage = screen.getByTestId("home-page");
-    expect(homePage).toBeInTheDocument();
-  });
+  const routes = [
+    { path: "/", testID: "home-page" },
+    { path: "/signup", testID: "signup-page" },
+  ];
+  const nullRoutes = [
+    { path: "/", testID: "signup-page" },
+    { path: "/signup", testID: "home-page" },
+  ];
 
-  it("displays the Signup page at '/signup' route", () => {
-    // access the right end point (JavaScript-internally)
-    window.history.pushState({}, "", "/signup")
-    // now <App> knows it has been accessed by calling the
-    // '/signup' endpoint; proxy-setting in package.json helps here.
-    render(<App />);
-    const signupPage = screen.getByTestId("signup-page");
-    expect(signupPage).toBeInTheDocument();
-  });
+  it.each(routes)(
+    "addresses endpoint '$path' and finds test ID '$testID'",
+    ({ path, testID }) => {
+      window.history.pushState({}, "", path);
+      render(<App />);
+      const myComponent = screen.getByTestId(testID);
+      expect(myComponent).toBeInTheDocument();
+    }
+  );
 
-  it("doesn't display Signup page at '/' route", () => {
-    // access the right end point (JavaScript-internally)
-    window.history.pushState({}, "", "/")
-    render(<App />);
-    const signupPage = screen.queryByTestId("signup-page");
-    expect(signupPage).not.toBeInTheDocument();
-  });
-
-  it("doesn't display the landing page at '/signup' route", () => {
-    // access the right end point (JavaScript-internally)
-    window.history.pushState({}, "", "/signup")
-    render(<App />);
-    const landingPage = screen.queryByTestId("home-page");
-    expect(landingPage).not.toBeInTheDocument();
-  });
-
-
+  it.each(nullRoutes)(
+    "addresses endpoint '$path' and won't find test ID '$testID'",
+    ({ path, testID }) => {
+      window.history.pushState({}, "", path);
+      render(<App />);
+      const myComponent = screen.queryByTestId(testID);
+      expect(myComponent).not.toBeInTheDocument();
+    }
+  );
 
 });

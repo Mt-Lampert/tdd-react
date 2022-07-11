@@ -1,6 +1,36 @@
 # Journal: TDD React mit Bashar Büyükkharahman
 
-## 22-07-09
+## 2022-07-11
+
+### 08:45
+
+Das Refactoring ist meine erste Begegnung mit Jest's `test.each()`. Möge die Übung gelingen!
+
+### 09:15
+
+Die Übung IST gelungen, wie das aktuelle Commit zeigt. Hier das Beispiel aus dem Projekt mit Anmerkungen:
+
+```js
+ 1 const routes = [
+ 2   { path: "/", testID: "home-page" },
+ 3   { path: "/signup", testID: "signup-page" },
+ 4 ];
+ 5
+ 6 it.each(routes)(
+ 7   "addresses endpoint '$path' and finds test ID '$testID'",
+ 8   ({ path, testID }) => {
+ 9     window.history.pushState({}, "", path);
+10     render(<App />);
+11     const myComponent = screen.getByTestId(testID);
+12     expect(myComponent).toBeInTheDocument();
+13   }
+14 );
+```
+#### __Anmerkungen:__
+- In der _description_ (Z.7) entsprechen die Variablen `$path` und `$testID` den Objekt-Keys des aktuell übergebenen `routes`-Objekts.
+- In Z.8 kommt _object destructuring_ zum Einsatz. Das zerlegte Objekt ist das aktuell übergebene Objekt aus dem `routes`-Array.
+
+## 2022-07-09
 
 ### 06:01
 
