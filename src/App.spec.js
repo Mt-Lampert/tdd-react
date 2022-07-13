@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import App from "./App";
 
 describe("Routing", () => {
@@ -51,5 +52,17 @@ describe("Routing", () => {
       expect(link).toBeInTheDocument();
     }
   );
+
+  it("shows the 'signup' page after clicking the 'signup' link", async () => {
+    window.history.pushState({}, "", "/")
+    const user = userEvent.setup();
+    render(<App />)
+
+    const link = screen.getByRole("link", {name: "Signup"})
+    user.click(link)
+    // wait for re-rendering
+    await new Promise((res, rej) => { setTimeout(res, 50); });
+    expect(screen.getByTestId('signup-page')).toBeInTheDocument()
+  })
 
 });

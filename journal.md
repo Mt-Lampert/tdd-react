@@ -1,6 +1,39 @@
 # Journal: TDD React mit Bashar Büyükkharahman
 
+## TODO:
+
+* Migrating to _react-router-dom_ 
+
+
+
 ## 2022-07-13
+
+### 17:30
+
+Wir haben jetzt Problem mit diesem Test:
+
+```javascript
+ 1 it("shows the 'signup' page after clicking the 'signup' link", async () => {
+ 2   window.history.pushState({}, "", "/")
+ 2   const user = userEvent.setup();
+ 3   render(<App />)
+ 4
+ 5   const link = screen.getByRole("link", {name: "Signup"})
+ 6   user.click(link)
+ 7   // wait 50ms for re-rendering!
+ 8   await new Promise((res, rej) => { setTimeout(res, 50); });
+ 9   expect(screen.getByTestId('signup-page')).toBeInTheDocument()
+10 })
+```
+
+Wenn in Z.6 auf den Link geklickt wird, findet innerhalb der Testumgebung leider kein Re-Rendering statt; im Browser dagegen schon: Bei einem Klick auf einen Link wird die komplette Seite noch einmal in den Browser geladen. _Das ist aber nicht das, was wir bei einer Single-Page-Application wollen!_ Wir wollen, dass die Page-Components _intern_ ausgetauscht und neu gerendert werden, wenn man auf einen _internen_ (!!) Link klickt. Dazu dient der jetzt kommende Schritt bei diesem selbst gebastelten Routing: 
+
+1. Wir bauen einen Event-Handler, der mit dem internen Link verknüpfen
+0. Wir verwenden State-Management, um das entsprechende Component nachzuladen.
+
+Den genauen Code kann man dem aktuellen Commit entnehmen.
+
+
 
 ### 11:55
 
