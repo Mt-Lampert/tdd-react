@@ -12,7 +12,6 @@ function App() {
   const [endpoint, setEndpoint] = useState(window.location.pathname);
 
   function updateEndpoint(pEndpoint) {
-    console.log(`Updating Endpoint with ${pEndpoint}`);
     window.history.pushState({}, "", pEndpoint);
     setEndpoint(pEndpoint);
   }

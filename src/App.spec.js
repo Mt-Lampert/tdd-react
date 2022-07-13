@@ -19,8 +19,9 @@ describe("Routing", () => {
   ];
 
   const navbarLinks = [
-    { path: "/", roleName: "Home" },
-    { path: "/signup", roleName: "Signup" },
+    { init: "/", path: "/", roleName: "Home", testID: "home-page"},
+    { init: "/", path: "/login", roleName: "Login", testID: "login-page"},
+    { init: "/", path: "/signup", roleName: "Signup", testID: "signup-page" },
   ];
 
   it.each(routes)(
@@ -53,16 +54,20 @@ describe("Routing", () => {
     }
   );
 
-  it("shows the 'signup' page after clicking the 'signup' link", async () => {
-    window.history.pushState({}, "", "/")
-    const user = userEvent.setup();
-    render(<App />)
+  it.each(navbarLinks)(
+    "shows the '$testID' after clicking the '$roleName' link",
+    async ({ init, roleName, testID }) => {
+      window.history.pushState({}, "", init);
+      const user = userEvent.setup();
+      render(<App />);
 
-    const link = screen.getByRole("link", {name: "Signup"})
-    user.click(link)
-    // wait for re-rendering
-    await new Promise((res, rej) => { setTimeout(res, 50); });
-    expect(screen.getByTestId('signup-page')).toBeInTheDocument()
-  })
-
+      const link = screen.getByRole("link", { name: roleName });
+      user.click(link);
+      // wait for re-rendering
+      await new Promise((res) => {
+        setTimeout(res, 50);
+      });
+      expect(screen.getByTestId(testID)).toBeInTheDocument();
+    }
+  );
 });
