@@ -1,5 +1,30 @@
 # Journal: TDD React mit Bashar Büyükkharahman
 
+## 2022-07-13
+
+### 11:55
+
+Gefordert war dieser Test:
+
+```javascript
+ 1 it.each(routes)("has link to '$testID' on the navbar", ({ path }) => {
+ 2   window.history.pushState({}, "", path);
+ 3   render(<App />);
+ 4   const link = screen.getByRole("link", { name: "Home" });
+ 5   expect(link).toBeInTheDocument();
+ 6 });
+```
+
+Das Suchkriterium `name: "Home"` konnten wir im Component am Ende mit diesem Element befriedigen:
+
+```xml
+<a href="/" title="Home">Hoaxify</a>
+``` 
+
+Das `"Home"` im `title`-Attribut hat genügt.
+
+
+
 ## 2022-07-11
 
 ### 08:45
