@@ -1,8 +1,15 @@
-.mainframe {
+.bodyframe {
   padding-left: 3rem;
   padding-right: 3rem;
   padding-top: 2rem;
-  height: 100vh;
+  height: 100%;
   margin: 0 auto;
   background-color: #fbf6f0;
+}
+
+.mainframe {
+  padding-left: 1.5rem;
+  padding-top: 1.5rem;
+  height: 100vh;
+  background-color: #fdfdfd;
 }

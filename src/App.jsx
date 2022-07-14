@@ -17,7 +17,7 @@ function App() {
   }
 
   return (
-    <>
+    <div className="bodyframe">
       <Navbar updateEndpoint={updateEndpoint} />
       <div className="mainframe">
         {/* if the current URL ends with '/', render <LandingPage> */}
@@ -29,7 +29,7 @@ function App() {
         {/* if the current URL starts with '/user', render <User> */}
         {window.location.pathname.startsWith("/user") && <User />}
       </div>
-    </>
+    </div>
   );
 }
 
