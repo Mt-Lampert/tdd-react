@@ -2,8 +2,15 @@
 
 ## TODO:
 
-* Migrating to _react-router-dom_ 
 
+## 2022-07-15
+
+### 11:35 
+
+Wir implementieren jetzt ein neues Feature: __Aktivierung.__  Dabei ist an folgendes Szenario gedacht:
+Ein Benutzer hat sich neu registriert und bekommt eine Aktivierungs-Mail mit einem Link, der seinen 
+Account aktiviert, wenn er ihn anklickt. Wenn er das tut, sendet ihn sein Browser an den Endpunkt 
+`/activate/:token`.
 
 
 ## 2022-07-13

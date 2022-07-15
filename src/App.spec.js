@@ -5,13 +5,16 @@ import App from "./App";
 describe("Routing", () => {
   const routes = [
     { path: "/", testID: "home-page" },
-    { path: "/signup", testID: "signup-page" },
+    { path: "/activate/442", testID: "activate-page" },
+    { path: "/activate/110", testID: "activate-page" },
     { path: "/login", testID: "login-page" },
+    { path: "/signup", testID: "signup-page" },
     { path: "/user/1", testID: "user-page" },
     { path: "/user/22", testID: "user-page" },
   ];
   const nullRoutes = [
     { path: "/", testID: "signup-page" },
+    { path: "/", testID: "activate-page" },
     { path: "/signup", testID: "home-page" },
     { path: "/login", testID: "home-page" },
     { path: "/user/22", testID: "home-page" },
