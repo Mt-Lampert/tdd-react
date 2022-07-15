@@ -5,6 +5,53 @@
 
 ## 2022-07-15
 
+### 19:10
+
+Das `<Activate>`-Component mit der richtigen Route in Projekt und Tests zu integrieren, war der leichtere Teil.
+
+Der schwierigere war, im `<Activate>`-Component die Sache mit dem Token richtig testen zu können. So sah es aus:
+
+```javascript
+import { useParams } from "react-router-dom";
+
+export default function Activate(props) {
+  const params = useParams();
+  return (
+    <div data-testid="activate-page">
+      <h1 className="title">This is the activation page!</h1>
+      <p>Your token: {params.token}</p>
+    </div>
+  )
+};
+```
+
+`params.token` sind davon abhängig, dass der Router sie zur Verfügung stellt. Zum Glück haben die Macher von _react-router-dom_ auch daran gedacht. Sie haben einen Mock-Router in ihr Paket eingebaut: `MemoryRouter`. Das Beispiel zeigt, wie man ihn benutzt.
+
+```javascript
+import { MemoryRouter as Router, Route, Routes } from "react-router-dom";
+
+describe("Activate page", () => {
+  function routedRender(url) {
+    render(
+      <Router initialEntries={[url]}>
+        <Routes>
+          <Route path="/activate/:token" element={<Activate />} />
+        </Routes>
+      </Router>
+    );
+  }
+
+  it("has access to URL params", () => {
+    routedRender("/activate/4567");
+    const notification = screen.getByText("Your token: 4567");
+    expect(notification).toBeInTheDocument();
+  });
+});
+```
+
+Der entscheidende Punkt ist die URL, die an `routedRender()` übergeben wird. Sie ist die URL, die vor dem Rendern im `<Activate>`-Component ankommt. aus ihr entnimmt `useParams()` den Token und baut ihn ins JSX ein.
+
+
 ### 11:35 
 
 Wir implementieren jetzt ein neues Feature: __Aktivierung.__  Dabei ist an folgendes Szenario gedacht:
