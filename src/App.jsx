@@ -1,5 +1,6 @@
 // import logo from './logo.svg';
 import { useState } from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import LandingPage from "./pages/LandingPage";
 import Navbar from "./components/Navbar";
 import Login from "./pages/Login";
@@ -9,27 +10,22 @@ import "./App.scss";
 import "./App.css";
 
 function App() {
-  const [endpoint, setEndpoint] = useState(window.location.pathname);
 
-  function updateEndpoint(pEndpoint) {
-    window.history.pushState({}, "", pEndpoint);
-    setEndpoint(pEndpoint);
-  }
 
   return (
-    <div className="bodyframe">
-      <Navbar updateEndpoint={updateEndpoint} />
-      <div className="mainframe">
-        {/* if the current URL ends with '/', render <LandingPage> */}
-        {window.location.pathname === "/" && <LandingPage />}
-        {/* if the current URL ends with '/signup', render <Signup> */}
-        {window.location.pathname === "/signup" && <Signup />}
-        {/* if the current URL ends with '/login', render <Login> */}
-        {window.location.pathname === "/login" && <Login />}
-        {/* if the current URL starts with '/user', render <User> */}
-        {window.location.pathname.startsWith("/user") && <User />}
+    <Router>
+      <div className="bodyframe">
+        <Navbar />
+        <div className="mainframe">
+          <Routes>
+            <Route exact path="/" element={<LandingPage />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/user/:id" element={<User />} />
+          </Routes>
+        </div>
       </div>
-    </div>
+    </Router>
   );
 }
 

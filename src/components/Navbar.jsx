@@ -1,12 +1,13 @@
+import { Link } from "react-router-dom";
 import { useRef } from "react";
 
-export default function Navbar({ updateEndpoint }) {
+export default function Navbar() {
   const navbarRef = useRef();
 
-  function linkHandler(e) {
-    e.preventDefault();
-    updateEndpoint(e.currentTarget.attributes.href.value);
-  }
+  // function linkHandler(e) {
+  //   e.preventDefault();
+  //   updateEndpoint(e.currentTarget.attributes.href.value);
+  // }
 
   function toggleMenu(e) {
     const hamburger = e.target;
@@ -18,13 +19,13 @@ export default function Navbar({ updateEndpoint }) {
   return (
     <nav className="navbar">
       <div className="navbar-brand">
-        <a href="/" className="navbar-item" title="Home" onClick={linkHandler}>
+        <Link to="/" className="navbar-item" title="Home">
           <img src="/hoaxify.png" alt="Logo" width="45%" />
           <b>Hoaxify</b>
-        </a>
-        <a
-          role="button"
-          class="navbar-burger"
+        </Link>
+      {/* Hamburger menu */}
+      <button
+          className="navbar-burger"
           aria-label="menu"
           aria-expanded="false"
           data-target="navbar-menu"
@@ -33,20 +34,19 @@ export default function Navbar({ updateEndpoint }) {
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
           <span aria-hidden="true"></span>
-        </a>
+        </button>
       </div>
       <div className="navbar-menu" ref={navbarRef}>
         <div className="navbar-end">
-          <a href="/signup" className="navbar-link" onClick={linkHandler}>
+          <Link to="/signup" className="navbar-link">
             Signup
-          </a>
+          </Link>
 
-          <a href="/login" className="navbar-link" onClick={linkHandler}>
+          <Link to="/login" className="navbar-link">
             Login
-          </a>
+          </Link>
         </div>
       </div>
-      {/* Hamburger menu */}
 
     </nav>
   );
