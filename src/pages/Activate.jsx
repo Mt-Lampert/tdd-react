@@ -6,6 +6,8 @@ export default function Activate(props) {
     <div data-testid="activate-page">
       <h1 className="title">This is the activation page!</h1>
       <p>Your token: {params.token}</p>
+
+      <p className="notification is-success">Activation successful!</p>
     </div>
   )
 };

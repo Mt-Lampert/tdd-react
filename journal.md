@@ -1,9 +1,33 @@
 # Journal: TDD React mit Bashar Büyükkharahman
 
-## TODO:
+<!-- ## TODO: -->
 
 
 ## 2022-07-15
+
+### 17:20
+
+Wir haben ein neues Scenario
+
+```gherkin
+Feature: User Activation
+
+  Scenario: Activation successful
+    When the user clicks on the link in the activation email
+    And the link has a valid token
+    Then the Activation page opens in the browser
+    And she sees a message saying "Activation successful"
+    And she finds herself being logged in.
+
+  Scenario: Activation failing
+    When the user clicks on the link in the activation email
+    And the link does not have a valid token
+    Then the Activation page opens in the browser
+    And she sees a message saying "Activation failed"
+    And she finds herself being logged out.
+```
+
+
 
 ### 19:10
 
