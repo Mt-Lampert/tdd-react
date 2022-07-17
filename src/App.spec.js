@@ -1,12 +1,15 @@
 import { render, screen } from "@testing-library/react";
+import { server } from "./msw-server";
 import userEvent from "@testing-library/user-event";
 import App from "./App";
 
 describe("Routing", () => {
   const routes = [
     { path: "/", testID: "home-page" },
-    { path: "/activate/442", testID: "activate-page" },
-    { path: "/activate/110", testID: "activate-page" },
+    // activate with valid token
+    { path: "/activate/1234", testID: "activate-page" },
+    // activate with invalid token
+    { path: "/activate/9999", testID: "activate-page" },
     { path: "/login", testID: "login-page" },
     { path: "/signup", testID: "signup-page" },
     { path: "/user/1", testID: "user-page" },

@@ -13,7 +13,6 @@ export default function Activate(props) {
         act(() => setIsActivated(1))
       })
       .catch((error) => {
-        console.log("I'm in the .catch branch")
         act(() => setIsActivated(-1))
       })
   }, [])
