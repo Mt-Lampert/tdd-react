@@ -2,6 +2,39 @@
 
 <!-- ## TODO: -->
 
+## 2022-07-16
+
+### 07:30
+
+Hab den ersten Teil des neuen Features implementiert. Die Userin bekommt wahrheitsgemäß 
+angezeigt, ob die Aktivierung erfolgreich war oder daneben gegangen ist.
+
+__Anmerkungen:__
+
+Erstens: Der MSW-Server ist so gut, dass man ihn nur noch konfigurieren muss (wie in 
+`/src/msw-server.js` geschehen). Dann ist er schon fix und fertig einsatzfähig, 
+_wenn man ihn nur importiert!_
+
+```javascript
+// in Activate.spec.js
+import { server } from "../msw-server";
+```
+
+Zweitens: Hatte beim Testen ein bisschen zu kämpfen mit einem state-update in `useEffect()`.
+Der Trick war am Ende, dass ich im Test `await` und `findByXXX()` verwendet habe. Da
+ging dann alles reibungslos.
+
+```javascript
+it("has an 'Activation successful' message", async () => {
+  routedRender("/activate/1234");
+  // await + findByText is necessary to account for re-rendering the
+  // <Activate> component after HTTP request and state update
+  const success = await screen.findByText("Activation successful!");
+  expect(success).toBeInTheDocument();
+});
+```
+
+
 
 ## 2022-07-15
 
