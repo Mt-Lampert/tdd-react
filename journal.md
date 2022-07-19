@@ -2,6 +2,29 @@
 
 <!-- ## TODO: -->
 
+## 2022-07-19
+
+Ich habe nach längerem Überlegen beschlossen, den Kurs an dieser Stelle zu unterbrechen,
+da ich mein Ziel erreicht habe. Mein Ziel war es, Test-Driven-Development mit React
+zu lernen und zu üben.
+
+Der Kurs von BB bringt mir nichts neues mehr bei. Die Themen, die jetzt noch dran sind,
+vervollständigen das Projekt, bringen mir in der Sache aber nichts mehr.  Ich kann bei
+BB nichts mehr lernen, was ich nicht besser bei Academind oder Dmitri Pavlutin oder Robin
+Wieruch lernen kann. Oder bei den 30 React-Projekten, die ich demnächst in Angriff 
+nehmen werde.
+
+Ich habe Grund, mich bei BB zu bedanken für all das Wissen und all die Erfahrung, die er
+mir geschenkt hat; auf der anderen Seite hatte ich aber auch reichlich Grund, mich über
+ihn zu ärgern. Das betrifft besonders seine Art, keine Use Cases, keine Wireframes und 
+keine Specs anzubieten, sondern einfach aus dem Bauch raus loszukodieren, so dass dumme
+Menschen wie ich immer erst hinterher darauf kommen mussten, was er eigentlich wollte und
+warum er den Weg gewählt hat, den er gewählt hat.
+
+Hier ist also erst mal schluss; vielleicht komme ich ja nochmal zurück. "Schau' mer mal", 
+wie Franz Beckenbauer zu sagen pflegte.
+
+
 ## 2022-07-16
 
 ### 07:30
